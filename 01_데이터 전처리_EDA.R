@@ -1,6 +1,9 @@
 ### 신한금융그룹 빅데이터 해커톤 ###
 ### 숙데콘(숙명데이터유니콘)의 신한카드 데이터 분석 프로젝트 ###
 
+## 1. ** 데이터 전처리 ~ 탐색적 데이터 분석 ** ####
+
+
 install.packages("readr")
 install.packages("stringr")
 install.packages("dplyr")
@@ -17,11 +20,6 @@ library(dplyr)
 library(ggplot2)
 library(rpart)
 library(caret)
-
-
-### *** 아이디어 1 *** ###
-
-## 1. 데이터 전처리 ~ 탐색적 데이터 분석 ####
 
 
 # 1.1. 데이터 불러오기

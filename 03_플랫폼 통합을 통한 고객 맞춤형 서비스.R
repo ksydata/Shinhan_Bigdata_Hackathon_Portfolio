@@ -1,6 +1,6 @@
-### *** 아이디어 트랙 2 *** ###
+### ** 3. 플랫폼 통합을 통한 고객 맞춤형 서비스 ** ####
 
-# 3. 고객 유치 아이디어 ####
+
 # 3.1. vip 고객 대상 서비스 - k-means 이용 ####
 
 # 3.1.1 고객 성향으로 군집 분석 - 이용건수, 취급금액으로 군집 설정 ####
@@ -31,7 +31,6 @@ set.seed(100000)
 k_vip<-kmeans(vip_scaled[,1:2],4) #k=4
 k_vip
 
-# ggplot2
 library(ggplot2)
 ggplot(data=vip_scaled, aes(x=C1, y=B167, colour=k_vip$cluster))+geom_point(shape=19, size=3)
 
@@ -260,14 +259,15 @@ library(arules)
 # (1) vip1 연관규칙
 sbh_vip_1_s <- sbh_vip_1[sample(nrow(sbh_vip_1),100),] #sampling
 sbh_vip1s_c <- subset(sbh_vip_1_s, select = c(180:205))
-#str(sbh_vip1s_c)
-#head(sbh_vip1s_c)
+# str(sbh_vip1s_c)
+# head(sbh_vip1s_c)
 
 trans1 <-as(sbh_vip1s_c, "transactions")
 
 # 연관규칙 설정
 rule_1 <- apriori(data = trans1, parameter = list(support = 0.3, confidence = 0.75))
 # summary(rule_1)
+
 # 연관 규칙 확인, 분석
 inspect_1 <- inspect(head(sort(rule_1, by = "confidence"), n = 100))
 
@@ -295,7 +295,8 @@ trans2<-as(sbh_vip2s_c, "transactions")
 
 # 연관규칙 설정
 rule_2 <- apriori(data = trans2, parameter = list(support = 0.3, confidence = 0.75))
-#summary(rule_2)
+# summary(rule_2)
+
 # 연관 규칙 확인, 분석
 inspect_2 <- inspect(head(sort(rule_2, by = "confidence"), n = 100))
 
@@ -319,7 +320,8 @@ trans3<-as(sbh_vip3s_c, "transactions")
 
 # 연관규칙 설정
 rule_3 <- apriori(data = trans3, parameter = list(support = 0.3, confidence = 0.75))
-#summary(rule_2)
+# summary(rule_2)
+
 # 연관 규칙 확인, 분석
 inspect_3 <- inspect(head(sort(rule_3, by = "confidence"), n = 100))
 
@@ -344,7 +346,8 @@ trans4 <- as(sbh_vip4s_c, "transactions")
 
 # 연관규칙 설정
 rule_4 <- apriori(data = trans4, parameter = list(support = 0.3, confidence = 0.75))
-#summary(rule_2)
+# summary(rule_2)
+
 # 연관 규칙 확인, 분석
 inspect_4 <- inspect(head(sort(rule_4, by = "confidence"), n = 100))
 
@@ -360,11 +363,11 @@ inspect_4_f <- inspect_4[c(2,  3,  4,  5,  6, 7,  8,  9 ,10, 12, 13, 14, 15, 16,
 
 
 
-
 # 3.2 vip 제외 전체 고객 대상 서비스 - k-means 이용 ####
+
 sbh_n_vip <- sbh %>% filter(P4 == "0") %>% filter(G1 != "HH" | G1 != "HL") %>% select(ID, C1, B167)
 
-# 표준화 - 이용건수와 취급금액의 단위가 달라서
+# 표준화 - 이용건수와 취급금액의 단위가 다르기 때문에 수행
 n_vip_scaled <- as.data.frame(scale(sbh_n_vip[,2:3], center=T, scale = T))
 n_vip_scaled$ID <- sbh_n_vip$ID
 head(n_vip_scaled)
@@ -618,6 +621,7 @@ ntrans1<-as(sbh_nvip1s_c, "transactions")
 # 연관규칙 설정
 nrule_1 <- apriori(data = ntrans1, parameter = list(support = 0.3, confidence = 0.75))
 #summary(rule_1)
+
 # 연관 규칙 확인, 분석
 ninspect_1 <- inspect(head(sort(nrule_1, by = "confidence"), n = 100))
 
@@ -644,6 +648,7 @@ ntrans2<-as(sbh_nvip2s_c, "transactions")
 # 연관규칙 설정
 nrule_2 <- apriori(data = ntrans2, parameter = list(support = 0.3, confidence = 0.75))
 #summary(rule_1)
+
 # 연관 규칙 확인, 분석
 ninspect_2 <- inspect(head(sort(nrule_2, by = "confidence"), n = 100))
 
@@ -668,6 +673,7 @@ ntrans3<-as(sbh_nvip3s_c, "transactions")
 
 # 연관규칙 설정
 nrule_3 <- apriori(data = ntrans3, parameter = list(support = 0.3, confidence = 0.75))
+
 # 연관 규칙 확인, 분석
 ninspect_3 <- inspect(head(sort(nrule_3, by = "confidence"), n = 100))
 
@@ -693,7 +699,8 @@ ntrans4<-as(sbh_nvip4s_c, "transactions")
 
 # 연관규칙 설정
 nrule_4 <- apriori(data = ntrans4, parameter = list(support = 0.3, confidence = 0.75))
-#summary(rule_1)
+# summary(rule_1)
+
 # 연관 규칙 확인, 분석
 ninspect_4 <- inspect(head(sort(nrule_4, by = "confidence"), n = 100))
 
@@ -704,9 +711,9 @@ ninspect_4$lhs_tf <- ifelse(ninspect_4$lhs_tf == 'TRUE' , 'yes', 'no')
 ninspect_4$rhs_tf <- ifelse(ninspect_4$rhs_tf == 'TRUE' , 'yes', 'no')
 
 which(ninspect_4$lhs_tf == "yes" & ninspect_4$rhs_tf == "yes") 
-#[1]  2  3  4  5  6  7  8  9 10 12 13 14 15 16 19 20 21 22 23 24 25 26 28 29 30 31 32 33 34 35 36 37 39 40 42 43 44 45
-#[39] 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 67 68 69 70 72 73 75 76 77 78 79 80 81 82 83 84 85 86 87
-#[77] 88 89 90 91 93 94 95 97 98 99
+# [1]  2  3  4  5  6  7  8  9 10 12 13 14 15 16 19 20 21 22 23 24 25 26 28 29 30 31 32 33 34 35 36 37 39 40 42 43 44 45
+# [39] 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 67 68 69 70 72 73 75 76 77 78 79 80 81 82 83 84 85 86 87
+# [77] 88 89 90 91 93 94 95 97 98 99
 ninspect_4_f <- ninspect_4[c(2,  3,  4,  5,  6,  7,  8,  9, 10, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 26, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 39, 40, 42, 43, 44, 45, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 67, 68, 69, 70, 72, 73, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 93, 94, 95, 97, 98, 99),]
 
 

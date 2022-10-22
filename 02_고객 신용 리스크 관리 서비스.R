@@ -59,7 +59,8 @@ ggplot(data = sbh_H, aes(x = nE1, y = C16)) + geom_jitter(aes(col = C16), height
 # 2.4.1. (1) C5
 
 quantile(sbh_H$C5, probs=c(0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95)) #95% 498000
-length(which(sbh_H$C5 >= 498000)) # 95%값 이상인 경우 4451개 (상위 5%)
+length(which(sbh_H$C5 >= 498000)) 
+  # 95%값 이상인 경우 4451개 (상위 5%)
   # 상위 5%만 추출
 
 sbh_H_C5 <- sbh_H %>% filter(C5 >= 498000) %>% select(c(1:8,B12, B106, B107, C1, C5, 209:215))
@@ -95,7 +96,8 @@ ggplot(data = H_B107, aes(x=P2, y=B107, group=1))+geom_line(size=2, color='gold'
 
 quantile(sbh_H$C18, probs=c(0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95)) 
   # 다 0
-length(which(sbh_H$C18 != 0)) #0이 아닌 데이터 2896개
+length(which(sbh_H$C18 != 0)) 
+  # 0이 아닌 데이터 2896개
   # 일단 0이 아닌 데이터만 추출
 sbh_H_C18 <- sbh_H %>% filter(C18 != 0) %>% select(c(1:8, B74, B75, B76, C1, C18, 209:215))
 sbh_H_C18 <- sbh_H_C18[order(sbh_H_C18$C18, decreasing = T),] 
